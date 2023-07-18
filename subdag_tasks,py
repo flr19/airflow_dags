@@ -1,0 +1,26 @@
+from airflow import DAG
+from airflow.operators.subdag_operator import SubDagOperator
+from datetime import datetime
+from subdags import create_child_dag
+
+default_args = {
+    'start_date': datetime(2023, 7, 1),
+    'schedule_interval': '0 0 * * *',  # Daily at midnight
+}
+
+parent_dag = DAG(
+    'subdag_task_1',
+    default_args=default_args,
+    description='Parent DAG invoking child DAG',
+)
+
+def create_subdag(parent_dag_name, child_dag_name, args):
+    return create_child_dag(parent_dag_name, child_dag_name, args)
+
+with parent_dag:
+    subdag_task = SubDagOperator(
+        task_id='run_child_dag',
+        subdag=create_subdag('subdag_task_1', 'pythonoperator_demo', default_args),
+    )
+
+# Define any additional tasks and dependencies for the parent DAG as needed.

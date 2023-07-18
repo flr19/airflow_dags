@@ -1,0 +1,8 @@
+id,name,item description,quantity,sales price
+1,A,This is item A.,10,9.99
+2,B,,5,14.99
+3,,Item C description.,2,19.99
+4,D,,8,7.99
+5,E,Description for E.,3,12.99
+6,,Null description.,6,6.49
+7,F,Another description.,1,24.99
