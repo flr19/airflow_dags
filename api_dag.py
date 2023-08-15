@@ -10,7 +10,7 @@ from airflow.operators.python import PythonOperator
 
 def save_posts(ti) -> None:
     posts = ti.xcom_pull(task_ids=['get_posts'])
-    with open('data/posts.json', 'w') as f:
+    with open('airflow/data/posts.json', 'w') as f:
         json.dump(posts[0], f)
 
 with DAG(
